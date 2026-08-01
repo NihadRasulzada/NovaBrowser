@@ -1,0 +1,1 @@
+add_executable(browser_app src/main.cpp)
