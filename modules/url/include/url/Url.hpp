@@ -1,4 +1,6 @@
+#pragma once
 #include <string>
+#include <cstdint>
 
 namespace Browser::Url {
 	enum class Scheme : uint8_t {

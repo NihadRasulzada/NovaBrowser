@@ -1,6 +1,17 @@
+#pragma once
 #include "Url.hpp"
+#include "UrlToken.hpp"
 
-class UrlParser {
-public:
-	static Url Parse(std::string_view input);
-};
+#include <optional>
+#include <string>
+
+namespace Browser::Url {
+
+	class UrlParser {
+	public:
+		static std::optional<Url> Parse(const std::string& input);
+
+	private:
+		static Scheme SchemeFromString(std::string scheme);
+	};
+}
