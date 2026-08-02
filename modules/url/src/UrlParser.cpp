@@ -8,8 +8,9 @@
 namespace Browser::Url {
 
 	Scheme UrlParser::SchemeFromString(std::string scheme) {
-		std::transform(scheme.begin(), scheme.end(), scheme.begin(),
-			[](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+		std::transform(scheme.begin(), scheme.end(), scheme.begin(), [](unsigned char c) {
+			return static_cast<char>(std::tolower(c));
+			});
 
 		if (scheme == "http")  return Scheme::Http;
 		if (scheme == "https") return Scheme::Https;
@@ -20,10 +21,7 @@ namespace Browser::Url {
 		return Scheme::Unknown;
 	}
 
-	std::optional<Url> UrlParser::Parse(const std::string& input) {
-		UrlLexer lexer(input);
-		const std::vector<UrlToken> tokens = lexer.Tokenize();
-
+	std::optional<Url> UrlParser::Parse(const std::vector<UrlToken>& tokens) {
 		Url url;
 
 		for (const UrlToken& token : tokens) {
@@ -31,7 +29,7 @@ namespace Browser::Url {
 			case UrlTokenType::Scheme: {
 				const Scheme scheme = SchemeFromString(token.Value);
 				if (scheme == Scheme::Unknown) {
-					return std::nullopt; 
+					return std::nullopt;
 				}
 				url.SetScheme(scheme);
 				break;
@@ -46,7 +44,7 @@ namespace Browser::Url {
 
 			case UrlTokenType::Host:
 				if (token.Value.empty()) {
-					return std::nullopt; 
+					return std::nullopt;
 				}
 				url.SetHost(token.Value);
 				break;
@@ -57,7 +55,7 @@ namespace Browser::Url {
 				const char* end = token.Value.data() + token.Value.size();
 				const auto result = std::from_chars(begin, end, port);
 				if (result.ec != std::errc() || result.ptr != end) {
-					return std::nullopt; 
+					return std::nullopt;
 				}
 				url.SetPort(port);
 				break;
@@ -81,7 +79,7 @@ namespace Browser::Url {
 		}
 
 		if (url.GetHost().empty()) {
-			return std::nullopt; 
+			return std::nullopt;
 		}
 
 		return url;

@@ -1,0 +1,56 @@
+# Default: bütün mətn faylları LF istifadə etsin
+* text=auto eol=lf
+
+# C/C++
+*.h    text
+*.hpp  text
+*.c    text
+*.cpp  text
+*.cc   text
+*.cxx  text
+*.inl  text
+
+# Build files
+*.cmake        text
+CMakeLists.txt text
+
+# Scripts
+*.sh  text eol=lf
+*.ps1 text
+*.bat text eol=crlf
+
+# Config files
+*.json text
+*.xml  text
+*.yml  text
+*.yaml text
+*.toml text
+*.ini  text
+*.md   text
+*.txt  text
+*.gitignore text
+*.gitattributes text
+*.gitmodules text
+
+# Binary files
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.bmp  binary
+*.webp binary
+
+*.zip  binary
+*.7z   binary
+*.rar  binary
+*.gz   binary
+
+*.dll  binary
+*.exe  binary
+*.lib  binary
+*.pdb  binary
+*.obj  binary
+*.o    binary
+*.so   binary
+*.a    binary

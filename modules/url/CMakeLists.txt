@@ -8,9 +8,10 @@ file(GLOB_RECURSE URL_HEADERS CONFIGURE_DEPENDS
 
 add_library(browser_url STATIC
     ${URL_SOURCES}
-    ${URL_HEADERS}
-)
+    ${URL_HEADERS})
 
 target_include_directories(browser_url PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
+
+add_subdirectory(tests)
