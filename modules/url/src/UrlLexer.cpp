@@ -9,6 +9,7 @@ namespace Browser::Url {
 		return m_pos >= m_input.size();
 	}
 
+	//Bu bu isi gorur
 	char UrlLexer::Peek() const noexcept {
 		return IsEof() ? '\0' : m_input[m_pos];
 	}
