@@ -8,16 +8,22 @@ namespace Browser::Network
 	class EndPoint
 	{
 	public:
-		EndPoint() = default;
+		enum class Family
+		{
+			IPv4,
+			IPv6
+		};
 
-		EndPoint(std::string host, uint16_t port);
+		EndPoint();
+		EndPoint(Family family, std::string ip, uint16_t port);
 
-		const std::string& Host() const noexcept;
-
-		uint16_t Port() const noexcept;
+		Family GetFamily() const;
+		const std::string& GetIp() const;
+		uint16_t GetPort() const;
 
 	private:
-		std::string m_host;
-		uint16_t m_port = 0;
+		Family m_family;
+		std::string m_ip;
+		uint16_t m_port;
 	};
 }

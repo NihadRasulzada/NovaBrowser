@@ -6,8 +6,7 @@ namespace Browser::Network {
 	class IPv4Address : public Address {
 	public:
 		IPv4Address();
-
-		IPv4Address(const std::string address, uint16_t port);
+		IPv4Address(std::string address, uint16_t port);
 
 		std::string ToString() const override;
 		uint16_t Port() const override;

@@ -1,7 +1,7 @@
-#pragma once
+#pragma once 
 
-#include <string>
 #include <cstdint>
+#include <string>
 
 namespace Browser::Network {
 	class Address {

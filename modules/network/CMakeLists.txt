@@ -8,7 +8,7 @@ file(GLOB_RECURSE URL_HEADERS CONFIGURE_DEPENDS
 
 add_library(browser_network STATIC
     ${URL_SOURCES}
-    ${URL_HEADERS})
+    ${URL_HEADERS} "src/DnsResolver.cpp" "src/Connection.cpp")
 
 target_include_directories(browser_network PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
