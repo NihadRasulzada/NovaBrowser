@@ -1,20 +1,26 @@
 #pragma once 
 
-#include "ISocket.hpp"
+#include <cstddef>
 
-#ifdef BROWSER_WINDOWS
+#include "ISocket.hpp"
+#include "Platform.hpp"
+
+#ifdef BROWSER_PLATFORM_WINDOWS
 #include <WinSock2.h>
 #else
-#include <unistd.h>
+using SocketHandle = int;
 #endif
 
 namespace Browser::Network {
 	class SocketBase : public ISocket {
 	public:
-		virtual ~SocketBase();
+		~SocketBase() override;
+
+		void Close() override;
+		bool IsOpen() const noexcept override;
 
 	protected:
-#ifdef BROWSER_WINDOWS
+#ifdef	BROWSER_PLATFORM_WINDOWS
 		SOCKET m_handle = INVALID_SOCKET;
 #else
 		int m_handle = -1;

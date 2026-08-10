@@ -1,7 +1,9 @@
 #pragma once
 
-#ifdef _WIN32
-#define BROWSER_WINDOWS
+#if defined(_WIN32)
+#define BROWSER_PLATFORM_WINDOWS 1
+#elif defined(__linux__)
+#define BROWSER_PLATFORM_LINUX 1
 #else
-#define BROWSER_LINUX
+#error "Unsupported platform"
 #endif
