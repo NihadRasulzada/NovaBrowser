@@ -90,8 +90,7 @@ namespace Browser::Network {
 		}
 	}
 
-	std::size_t TcpSocket::Send(
-		std::span<const std::byte> data)
+	std::size_t TcpSocket::Send(std::span<const std::byte> data)
 	{
 		if (!IsOpen())
 		{
@@ -145,8 +144,7 @@ namespace Browser::Network {
 #endif
 	}
 
-	std::size_t TcpSocket::Receive(
-		std::span<std::byte> buffer)
+	std::size_t TcpSocket::Receive(std::span<std::byte> buffer)
 	{
 		if (!IsOpen())
 		{
