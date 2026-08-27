@@ -1,1 +1,1 @@
-add_subdirectory(windows)
+add_subdirectory(linux)
