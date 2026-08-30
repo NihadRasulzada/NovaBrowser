@@ -15,3 +15,10 @@ target_include_directories(browser_platform_linux
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
+
+find_package(X11 REQUIRED)
+
+target_link_libraries(browser_platform_linux
+    PRIVATE
+        X11::X11
+)

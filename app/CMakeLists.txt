@@ -1,3 +1,3 @@
 add_executable(browser_app src/main.cpp)
 
-target_link_libraries(browser_app PRIVATE browser_url)
+target_link_libraries(browser_app PRIVATE browser_url browser_platform_linux)

@@ -1,22 +1,33 @@
 #pragma once
 
+#include "WindowEvents.hpp"
 #include <X11/Xlib.h>
+#include <functional>
 
 namespace Browser::Platform::Linux {
 class Window {
+public:
+  using EventHandler = std::function<void(const WindowEvent &)>;
+  using PaintHandler = std::function<void(Display *, ::Window)>;
+
 public:
   Window(Display *display, const char *title, int width, int height);
   ~Window();
 
   void Show();
   ::Window Handle() const;
-  bool ProcessEvent(const XEvent &event);
+
+  void SetEventHandler(EventHandler handler);
+  void SetPaintHandler(PaintHandler handler);
 
 private:
   void Create();
 
   void RegisterEvents();
 
+  void HandleEvent(const XEvent &event);
+
+private:
   Display *m_display;
   int m_screen;
 
@@ -26,5 +37,8 @@ private:
 
   int m_width;
   int m_height;
+
+  EventHandler m_event_handler;
+  PaintHandler m_paint_handler;
 };
 } // namespace Browser::Platform::Linux

@@ -1,9 +1,15 @@
 #include "linux/Window.hpp"
 
-#include <X11/X.h>
-#include <X11/Xlib.h>
+#include <X11/Xatom.h>
+#include <algorithm>
 
 namespace Browser::Platform::Linux {
+
+namespace {
+constexpr long WindowEventMask =
+    ExposureMask | StructureNotifyMask | KeyPressMask | KeyReleaseMask |
+    ButtonPressMask | ButtonReleaseMask | PointerMotionMask;
+}
 
 Window::Window(Display *display, const char *title, int width, int height)
     : m_display(display), m_screen(DefaultScreen(display)), m_handle(0),
@@ -27,6 +33,30 @@ void Window::Create() {
       WhitePixel(m_display, m_screen));
 
   XStoreName(m_display, m_handle, m_title);
+
+  Atom wm_delete_window = XInternAtom(m_display, "WM_DELETE_WINDOW", False);
+
+  XSetWMProtocols(m_display, m_handle, &wm_delete_window, 1);
+}
+
+void Window::RegisterEvents() {
+  XSelectInput(m_display, m_handle, WindowEventMask);
+}
+
+void Window::Show() {
+  XMapWindow(m_display, m_handle);
+
+  XFlush(m_display);
+}
+
+::Window Window::Handle() const { return m_handle; }
+
+void Window::SetEventHandler(EventHandler handler) {
+  m_event_handler = std::move(handler);
+}
+
+void Window::SetPaintHandler(PaintHandler handler) {
+  m_paint_handler = std::move(handler);
 }
 
 } // namespace Browser::Platform::Linux
