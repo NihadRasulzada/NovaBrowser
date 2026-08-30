@@ -27,10 +27,12 @@ int Application::Run() {
 
   while (true) {
     XNextEvent(m_display, &event);
-    if (window.ProcessEvent(event)) {
+
+    if (window.HandleEvent(event)) {
       break;
     }
   }
+
   return 0;
 }
 

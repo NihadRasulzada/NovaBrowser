@@ -1,5 +1,6 @@
 #include "linux/Window.hpp"
 
+#include <X11/X.h>
 #include <X11/Xatom.h>
 #include <algorithm>
 
@@ -33,7 +34,7 @@ void Window::Create() {
       WhitePixel(m_display, m_screen));
 
   XStoreName(m_display, m_handle, m_title);
-
+  // TODO: Bura oyrenilecek. WM nedir deye.
   Atom wm_delete_window = XInternAtom(m_display, "WM_DELETE_WINDOW", False);
 
   XSetWMProtocols(m_display, m_handle, &wm_delete_window, 1);
@@ -57,6 +58,102 @@ void Window::SetEventHandler(EventHandler handler) {
 
 void Window::SetPaintHandler(PaintHandler handler) {
   m_paint_handler = std::move(handler);
+}
+
+bool Window::HandleEvent(const XEvent &event) {
+  if (event.type == Expose) {
+    if (m_paint_handler) {
+      m_paint_handler(m_display, m_handle);
+    }
+    return false;
+  }
+  if (!m_event_handler) {
+    return false;
+  }
+
+  WindowEvent window_event{};
+
+  switch (event.type) {
+  case ClientMessage: {
+    Atom wm_delete_window = XInternAtom(m_display, "WM_DELETE_WINDOW", False);
+
+    if (static_cast<Atom>(event.xclient.data.l[0]) == wm_delete_window) {
+      WindowEvent window_event{};
+
+      window_event.type = WindowEventType::Close;
+
+      if (m_event_handler) {
+        m_event_handler(window_event);
+      }
+
+      return true;
+    }
+    break;
+  }
+  case ConfigureNotify: {
+    window_event.type = WindowEventType::Resize;
+    window_event.width = event.xconfigure.width;
+    window_event.height = event.xconfigure.height;
+    m_width = event.xconfigure.width;
+    m_height = event.xconfigure.height;
+    return true;
+    break;
+  }
+  case MotionNotify: {
+    window_event.type = WindowEventType::MouseMove;
+
+    window_event.x = event.xmotion.x;
+
+    window_event.y = event.xmotion.y;
+    return true;
+    break;
+  }
+
+  case ButtonPress: {
+    window_event.type = WindowEventType::MouseButtonDown;
+
+    window_event.x = event.xbutton.x;
+
+    window_event.y = event.xbutton.y;
+
+    window_event.button = event.xbutton.button;
+    return true;
+    break;
+  }
+
+  case ButtonRelease: {
+    window_event.type = WindowEventType::MouseButtonUp;
+
+    window_event.x = event.xbutton.x;
+
+    window_event.y = event.xbutton.y;
+
+    window_event.button = event.xbutton.button;
+    return true;
+    break;
+  }
+
+  case KeyPress: {
+    window_event.type = WindowEventType::KeyDown;
+
+    window_event.key = event.xkey.keycode;
+    return true;
+    break;
+  }
+
+  case KeyRelease: {
+    window_event.type = WindowEventType::KeyUp;
+
+    window_event.key = event.xkey.keycode;
+    return true;
+    break;
+  }
+
+  default:
+    return false;
+  }
+  m_event_handler(window_event);
+  return false;
 }
 
 } // namespace Browser::Platform::Linux

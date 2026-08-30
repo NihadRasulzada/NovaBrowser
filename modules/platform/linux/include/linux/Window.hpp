@@ -20,12 +20,12 @@ public:
   void SetEventHandler(EventHandler handler);
   void SetPaintHandler(PaintHandler handler);
 
+  bool HandleEvent(const XEvent &event);
+
 private:
   void Create();
 
   void RegisterEvents();
-
-  void HandleEvent(const XEvent &event);
 
 private:
   Display *m_display;
