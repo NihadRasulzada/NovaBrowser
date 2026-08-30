@@ -2,7 +2,6 @@
 
 #include <X11/X.h>
 #include <X11/Xatom.h>
-#include <algorithm>
 
 namespace Browser::Platform::Linux {
 
@@ -74,6 +73,7 @@ bool Window::HandleEvent(const XEvent &event) {
   WindowEvent window_event{};
 
   switch (event.type) {
+  // Qiraqdan gelen mesajlar. window manager misal.
   case ClientMessage: {
     Atom wm_delete_window = XInternAtom(m_display, "WM_DELETE_WINDOW", False);
 
@@ -90,23 +90,24 @@ bool Window::HandleEvent(const XEvent &event) {
     }
     break;
   }
+  // Olcu size deyisiklikleri. window un sizesinin deyismeyi.
   case ConfigureNotify: {
     window_event.type = WindowEventType::Resize;
     window_event.width = event.xconfigure.width;
     window_event.height = event.xconfigure.height;
     m_width = event.xconfigure.width;
     m_height = event.xconfigure.height;
-    return true;
+    return false;
     break;
   }
+  // Mouse hereket edende tetiklenir
   case MotionNotify: {
     window_event.type = WindowEventType::MouseMove;
 
     window_event.x = event.xmotion.x;
 
     window_event.y = event.xmotion.y;
-    return true;
-    break;
+    return false;
   }
 
   case ButtonPress: {
@@ -117,8 +118,7 @@ bool Window::HandleEvent(const XEvent &event) {
     window_event.y = event.xbutton.y;
 
     window_event.button = event.xbutton.button;
-    return true;
-    break;
+    return false;
   }
 
   case ButtonRelease: {
@@ -129,24 +129,21 @@ bool Window::HandleEvent(const XEvent &event) {
     window_event.y = event.xbutton.y;
 
     window_event.button = event.xbutton.button;
-    return true;
-    break;
+    return false;
   }
 
   case KeyPress: {
     window_event.type = WindowEventType::KeyDown;
 
     window_event.key = event.xkey.keycode;
-    return true;
-    break;
+    return false;
   }
 
   case KeyRelease: {
     window_event.type = WindowEventType::KeyUp;
 
     window_event.key = event.xkey.keycode;
-    return true;
-    break;
+    return false;
   }
 
   default:
