@@ -15,14 +15,14 @@ enum class WindowEventType {
 
 struct WindowEvent {
   WindowEventType type;
-
   int x = 0;
   int y = 0;
-
   int width = 0;
   int height = 0;
-
   unsigned int button = 0;
   unsigned int key = 0;
+  char text = '\0';
+  bool is_return = false;
+  bool is_backspace = false;
 };
 } // namespace Browser::Platform::Linux

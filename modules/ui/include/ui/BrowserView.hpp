@@ -3,14 +3,14 @@
 #include "ui/View.hpp"
 
 namespace Nova::UI {
-class TabBarNode : public Node {
+class BrowserViewNode : public Node {
 public:
-  explicit TabBarNode(Style style = {}) : Node(std::move(style)) {}
+  explicit BrowserViewNode(Style style = {}) : Node(std::move(style)) {}
   void Layout(const Rect &bounds) override { m_bounds = bounds; }
   void Render(Display *display, ::Window window) const override;
 };
 
-inline View TabBar(Style style = {}) {
-  return View(std::make_shared<TabBarNode>(std::move(style)));
+inline View BrowserView(Style style = {}) {
+  return View(std::make_shared<BrowserViewNode>(std::move(style)));
 }
 } // namespace Nova::UI

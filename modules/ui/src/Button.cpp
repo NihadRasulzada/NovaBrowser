@@ -1,28 +1,26 @@
 #include "ui/Button.hpp"
 
-namespace Browser::UI {
+namespace Nova::UI {
 
-Button::Button(int x, int y, int width, int height, const char *label)
-    : m_x(x), m_y(y), m_width(width), m_height(height), m_label(label) {}
-
-void Button::Render(Display *display, ::Window window, int y) {
-
+void ButtonNode::Render(Display *display, ::Window window) const {
   GC gc = XCreateGC(display, window, 0, nullptr);
-
   const int screen = DefaultScreen(display);
-
   XSetForeground(display, gc, BlackPixel(display, screen));
-
-  XDrawRectangle(display, window, gc, m_x, y + m_y, m_width, m_height);
-
-  XDrawString(display, window, gc, m_x + 15, y + m_y + 21, m_label, 1);
-
+  XDrawRectangle(display, window, gc, m_bounds.x, m_bounds.y, m_bounds.width,
+                 m_bounds.height);
+  XDrawString(display, window, gc, m_bounds.x + 12, m_bounds.y + 21,
+              m_label.c_str(), static_cast<int>(m_label.size()));
   XFreeGC(display, gc);
 }
 
-bool Button::Contains(int x, int y) const {
-
-  return x >= m_x && x <= m_x + m_width && y >= m_y && y <= m_y + m_height;
+bool ButtonNode::MouseButtonDown(int x, int y) {
+  if (!m_bounds.Contains(x, y)) {
+    return false;
+  }
+  if (m_on_click) {
+    m_on_click();
+  }
+  return true;
 }
 
-} // namespace Browser::UI
+} // namespace Nova::UI
