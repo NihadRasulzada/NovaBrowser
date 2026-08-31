@@ -1,37 +1,50 @@
 #include "ui/NavigationBar.hpp"
-#include <X11/X.h>
-#include <X11/Xlib.h>
 
 namespace Browser::UI {
+
 namespace {
-void DrawButton(Display *display, ::Window window, GC gc, int left,
-                const char *text) {
-  XDrawRectangle(display, window, gc, left, 10, 36, 32);
 
-  XDrawString(display, window, gc, left + 15, 31, text, 1);
-}
-} // namespace
-void NavigationBar::Resize(int width) { m_width = width; }
+constexpr int NavigationBarHeight = 52;
 
-void NavigationBar::Render(Display *display, ::Window window) {
-  GC gc = XCreateGC(display, window, 0, nullptr);
-
-  const int screen = DefaultScreen(display);
-
-  XSetForeground(display, gc, BlackPixel(display, screen));
-
-  DrawButton(display, window, gc, 10, "<");
-  DrawButton(display, window, gc, 50, ">");
-  DrawButton(display, window, gc, 90, "R");
-
-  XDrawRectangle(display, window, gc, 140, 10, m_width - 160, 32);
-
-  const char *placeholder = "Search or enter address";
-
-  XDrawString(display, window, gc, 152, 31, placeholder, 23);
-
-  XFreeGC(display, gc);
 }
 
-void NavigationBar::MouseButtonDown(int x, int y) {}
+NavigationBar::NavigationBar()
+    : m_back_button(10, 10, 36, 32, "<"),
+
+      m_forward_button(50, 10, 36, 32, ">"),
+
+      m_reload_button(90, 10, 36, 32, "R") {}
+
+void NavigationBar::Resize(int width) { m_address_bar.Resize(width); }
+
+void NavigationBar::Render(Display *display, ::Window window, int y) {
+
+  m_back_button.Render(display, window, y);
+
+  m_forward_button.Render(display, window, y);
+
+  m_reload_button.Render(display, window, y);
+
+  m_address_bar.Render(display, window, y);
+}
+
+void NavigationBar::MouseButtonDown(int x, int y) {
+
+  if (m_back_button.Contains(x, y)) {
+    return;
+  }
+
+  if (m_forward_button.Contains(x, y)) {
+    return;
+  }
+
+  if (m_reload_button.Contains(x, y)) {
+    return;
+  }
+
+  if (m_address_bar.Contains(x, y)) {
+    m_address_bar.MouseButtonDown(x, y);
+  }
+}
+
 } // namespace Browser::UI

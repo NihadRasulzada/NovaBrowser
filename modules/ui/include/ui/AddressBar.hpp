@@ -2,14 +2,11 @@
 
 #include <X11/Xlib.h>
 
-#include "AddressBar.hpp"
-#include "Button.hpp"
-
 namespace Browser::UI {
 
-class NavigationBar {
+class AddressBar {
 public:
-  NavigationBar();
+  AddressBar();
 
   void Resize(int width);
 
@@ -17,12 +14,15 @@ public:
 
   void MouseButtonDown(int x, int y);
 
-private:
-  Button m_back_button;
-  Button m_forward_button;
-  Button m_reload_button;
+  bool Contains(int x, int y) const;
 
-  AddressBar m_address_bar;
+private:
+  int m_x;
+  int m_y;
+  int m_width;
+  int m_height;
+
+  bool m_focused;
 };
 
 } // namespace Browser::UI

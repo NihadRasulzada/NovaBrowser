@@ -18,9 +18,9 @@ void BrowserUI::Resize(int width, int height) {
 }
 
 void BrowserUI::Render(Display *display, ::Window window) {
-  m_tab_bar.Render(display, window);
+  m_tab_bar.Render(display, window, 0);
 
-  m_navigation_bar.Render(display, window);
+  m_navigation_bar.Render(display, window, TabBarHeight);
 }
 
 void BrowserUI::MouseMove(int x, int y) {}

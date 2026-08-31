@@ -8,7 +8,7 @@ class TabBar {
 public:
   void Resize(int width);
 
-  void Render(Display *display, ::Window window);
+  void Render(Display *display, ::Window window, int y);
 
   void MouseButtonDown(int x, int y);
 
