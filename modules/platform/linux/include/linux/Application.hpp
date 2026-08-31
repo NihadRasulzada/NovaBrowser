@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Window.hpp"
+
 #include <X11/Xlib.h>
 
 namespace Browser::Platform::Linux {
@@ -7,7 +9,8 @@ class Application {
 public:
   Application();
   ~Application();
-  int Run();
+  int Run(Window::EventHandler event_handler,
+          Window::PaintHandler paint_handler);
 
 private:
   Display *m_display;

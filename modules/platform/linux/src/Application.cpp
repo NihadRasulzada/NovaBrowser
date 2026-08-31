@@ -18,8 +18,13 @@ Application::~Application() {
   }
 }
 
-int Application::Run() {
+int Application::Run(Window::EventHandler event_handler,
+                     Window::PaintHandler paint_handler) {
   Window window(m_display, "NovaBrowser", 1280, 800);
+
+  window.SetEventHandler(std::move(event_handler));
+
+  window.SetPaintHandler(std::move(paint_handler));
 
   window.Show();
 
@@ -35,5 +40,4 @@ int Application::Run() {
 
   return 0;
 }
-
 } // namespace Browser::Platform::Linux
