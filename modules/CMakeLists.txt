@@ -1,5 +1,3 @@
-add_subdirectory(url)
-add_subdirectory(network)
 add_subdirectory(platform)
-add_subdirectory(rendering)
-add_subdirectory(ui)
+add_subdirectory(framework)
+add_subdirectory(browser)

@@ -3,13 +3,13 @@ file(GLOB_RECURSE URL_SOURCES CONFIGURE_DEPENDS
 )
 
 file(GLOB_RECURSE URL_HEADERS CONFIGURE_DEPENDS
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/rendering/*.hpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/url/*.hpp"
 )
 
-add_library(browser_rendering STATIC
+add_library(framework_ui STATIC
     ${URL_SOURCES}
     ${URL_HEADERS})
 
-target_include_directories(browser_rendering PUBLIC
+target_include_directories(framework_ui PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
