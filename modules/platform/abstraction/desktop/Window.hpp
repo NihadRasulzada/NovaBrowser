@@ -4,7 +4,7 @@
 #include <X11/Xlib.h>
 #include <functional>
 
-namespace Browser::Platform::Linux {
+namespace Browser::Platform {
 class Window {
 public:
   using EventHandler = std::function<void(const WindowEvent &)>;
@@ -41,4 +41,4 @@ private:
   EventHandler m_event_handler;
   PaintHandler m_paint_handler;
 };
-} // namespace Browser::Platform::Linux
+} // namespace Browser::Platform

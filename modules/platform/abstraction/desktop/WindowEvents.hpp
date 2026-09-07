@@ -2,7 +2,7 @@
 
 #include <X11/Xlib.h>
 
-namespace Browser::Platform::Linux {
+namespace Browser::Platform {
 enum class WindowEventType {
   Close,
   Resize,
@@ -25,4 +25,4 @@ struct WindowEvent {
   bool is_return = false;
   bool is_backspace = false;
 };
-} // namespace Browser::Platform::Linux
+} // namespace Browser::Platform

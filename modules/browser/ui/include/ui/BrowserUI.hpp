@@ -1,6 +1,6 @@
 #pragma once
-#include "ui/TextField.hpp"
-#include "ui/View.hpp"
+#include "ui/Components/TextField.hpp"
+#include "ui/Core/View.hpp"
 #include <X11/Xlib.h>
 #include <memory>
 #include <string>

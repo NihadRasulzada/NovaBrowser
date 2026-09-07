@@ -1,6 +1,6 @@
 #pragma once
-#include "ui/Node.hpp"
-#include "ui/View.hpp"
+#include "ui/Core/Node.hpp"
+#include "ui/Core/View.hpp"
 
 namespace Nova::UI {
 class BrowserViewNode : public Node {

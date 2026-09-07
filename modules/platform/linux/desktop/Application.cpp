@@ -1,11 +1,11 @@
-#include "linux/Application.hpp"
-#include "linux/Window.hpp"
+#include "desktop/Application.hpp"
+#include "desktop/Window.hpp"
 
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <stdexcept>
 
-namespace Browser::Platform::Linux {
+namespace Browser::Platform {
 Application::Application() : m_display(XOpenDisplay(nullptr)) {
   if (m_display == nullptr) {
     throw std::runtime_error("Failed to open X11 display.");
@@ -40,4 +40,4 @@ int Application::Run(Window::EventHandler event_handler,
 
   return 0;
 }
-} // namespace Browser::Platform::Linux
+} // namespace Browser::Platform

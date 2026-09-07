@@ -1,6 +1,8 @@
 #pragma once
-#include "ui/Node.hpp"
-#include "ui/View.hpp"
+
+#include "ui/Core/Node.hpp"
+#include "ui/Core/View.hpp"
+
 #include <functional>
 #include <string>
 

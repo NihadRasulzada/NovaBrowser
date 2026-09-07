@@ -1,10 +1,9 @@
 #pragma once
 
 #include <X11/Xlib.h>
-#include <utility>
 
 #include "ui/Layout.hpp"
-#include "ui/Style.hpp"
+#include "ui/Style/Style.hpp"
 
 namespace Nova::UI {
 class Node {

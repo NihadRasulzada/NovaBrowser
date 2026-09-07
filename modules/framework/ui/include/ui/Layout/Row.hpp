@@ -1,7 +1,6 @@
 #pragma once
 
-#include "View.hpp"
-#include "ui/Container.hpp"
+#include "ui/Layout/Container.hpp"
 #include <memory>
 #include <utility>
 #include <vector>

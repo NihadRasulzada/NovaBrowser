@@ -1,5 +1,5 @@
 #pragma once
-#include "ui/Node.hpp"
+#include "ui/Core/Node.hpp"
 #include <memory>
 
 namespace Nova::UI {

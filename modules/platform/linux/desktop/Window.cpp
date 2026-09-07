@@ -1,9 +1,9 @@
-#include "linux/Window.hpp"
+#include "desktop/Window.hpp"
 
 #include <X11/X.h>
 #include <X11/Xatom.h>
 
-namespace Browser::Platform::Linux {
+namespace Browser::Platform {
 
 namespace {
 constexpr long WindowEventMask =
@@ -153,4 +153,4 @@ bool Window::HandleEvent(const XEvent &event) {
   return false;
 }
 
-} // namespace Browser::Platform::Linux
+} // namespace Browser::Platform

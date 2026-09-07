@@ -4,7 +4,7 @@
 
 #include <X11/Xlib.h>
 
-namespace Browser::Platform::Linux {
+namespace Browser::Platform {
 class Application {
 public:
   Application();
@@ -16,4 +16,4 @@ private:
   Display *m_display;
 };
 
-} // namespace Browser::Platform::Linux
+} // namespace Browser::Platform

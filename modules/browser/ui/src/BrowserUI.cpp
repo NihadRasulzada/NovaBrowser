@@ -1,8 +1,8 @@
 #include "ui/BrowserUI.hpp"
 #include "ui/BrowserView.hpp"
-#include "ui/Button.hpp"
-#include "ui/Column.hpp"
-#include "ui/Row.hpp"
+#include "ui/Components/Button.hpp"
+#include "ui/Layout/Column.hpp"
+#include "ui/Layout/Row.hpp"
 #include "ui/TabBar.hpp"
 
 using namespace Nova::UI;
