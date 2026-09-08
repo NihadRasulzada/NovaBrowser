@@ -1,5 +1,6 @@
 #include "ui/BrowserUI.hpp"
 #include "ui/Components/NavigationBar.hpp"
+#include "ui/Components/TabBar.hpp"
 #include "ui/Components/Text.hpp"
 #include "ui/Layout/Column.hpp"
 
@@ -11,9 +12,8 @@ BrowserUI::BrowserUI() { m_root = Build(); }
 
 View BrowserUI::Build() {
   return Column({
+      TabBar(),
       NavigationBar(),
-      Text("Salam"),
-      // BrowserView()
   });
 }
 void BrowserUI::Resize(int width, int height) {
