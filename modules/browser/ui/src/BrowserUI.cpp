@@ -1,6 +1,7 @@
 #include "ui/BrowserUI.hpp"
-#include "ui/Components/Button.hpp"
-#include "ui/Layout/Row.hpp"
+#include "ui/Components/NavigationBar.hpp"
+#include "ui/Components/Text.hpp"
+#include "ui/Layout/Column.hpp"
 
 using namespace Nova::UI;
 
@@ -9,13 +10,11 @@ namespace Browser {
 BrowserUI::BrowserUI() { m_root = Build(); }
 
 View BrowserUI::Build() {
-  return Row(
-      {
-          Button("<", ButtonProps{.style = {.width = 36, .height = 32}}),
-          Button(">", ButtonProps{.style = {.width = 36, .height = 32}}),
-          Button("R", ButtonProps{.style = {.width = 36, .height = 32}}),
-      },
-      Style{.height = 52, .spacing = 8});
+  return Column({
+      NavigationBar(),
+      Text("Salam"),
+      // BrowserView()
+  });
 }
 void BrowserUI::Resize(int width, int height) {
   m_width = width;

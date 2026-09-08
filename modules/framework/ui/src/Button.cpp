@@ -1,31 +1,43 @@
 #include "ui/Components/Button.hpp"
 
-#include <iostream>
+#include <X11/Xlib.h>
 
 namespace Nova::UI {
 
+void ButtonNode::Layout(const Rect &bounds) {
+  m_bounds = bounds;
+
+  if (m_child.GetNode()) {
+    m_child->Layout(bounds);
+  }
+}
+
 void ButtonNode::Render(Display *display, ::Window window) const {
-  std::cout << "Button: "
-            << "x=" << m_bounds.x << " y=" << m_bounds.y
-            << " width=" << m_bounds.width << " height=" << m_bounds.height
-            << '\n';
   GC gc = XCreateGC(display, window, 0, nullptr);
+
   const int screen = DefaultScreen(display);
+
   XSetForeground(display, gc, BlackPixel(display, screen));
+
   XDrawRectangle(display, window, gc, m_bounds.x, m_bounds.y, m_bounds.width,
                  m_bounds.height);
-  XDrawString(display, window, gc, m_bounds.x + 12, m_bounds.y + 21,
-              m_label.c_str(), static_cast<int>(m_label.size()));
+
   XFreeGC(display, gc);
+
+  if (m_child.GetNode()) {
+    m_child->Render(display, window);
+  }
 }
 
 bool ButtonNode::MouseButtonDown(int x, int y) {
   if (!m_bounds.Contains(x, y)) {
     return false;
   }
+
   if (m_on_click) {
     m_on_click();
   }
+
   return true;
 }
 
