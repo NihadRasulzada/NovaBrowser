@@ -3,7 +3,7 @@ CMAKE     := cmake
 GENERATOR := "Unix Makefiles"
 BUILD_TYPE ?= Debug
 
-.PHONY: all configure build run clean rebuild test compiledb
+.PHONY: all configure build run hot-run clean rebuild test compiledb
 
 all: build
 
@@ -19,6 +19,20 @@ build: configure
 
 run: build
 	./$(BUILD_DIR)/app/browser_app
+
+hot-run: build
+	@echo "Starting NovaBrowser hot-run..."
+	@while true; do \
+		./$(BUILD_DIR)/app/browser_app & \
+		PID=$$!; \
+		echo "NovaBrowser started (PID: $$PID)"; \
+		inotifywait -r -e modify,create,delete,move \
+			modules app CMakeLists.txt; \
+		echo "Change detected. Restarting..."; \
+		kill $$PID 2>/dev/null || true; \
+		wait $$PID 2>/dev/null || true; \
+		$(CMAKE) --build $(BUILD_DIR) -j$(shell nproc); \
+	done
 
 test: build
 	ctest --test-dir $(BUILD_DIR) --output-on-failure

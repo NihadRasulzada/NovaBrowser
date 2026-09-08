@@ -22,6 +22,21 @@ protected:
   explicit Node(Style style) : m_style(std::move(style)) {}
 
 protected:
+  Rect ResolveBounds(const Rect &bounds) const {
+    Rect result = bounds;
+
+    if (m_style.width.has_value()) {
+      result.width = *m_style.width;
+    }
+
+    if (m_style.height.has_value()) {
+      result.height = *m_style.height;
+    }
+
+    return result;
+  }
+
+protected:
   Style m_style;
   Rect m_bounds;
 };

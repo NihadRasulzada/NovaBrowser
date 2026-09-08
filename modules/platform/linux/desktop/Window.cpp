@@ -95,55 +95,11 @@ bool Window::HandleEvent(const XEvent &event) {
     window_event.type = WindowEventType::Resize;
     window_event.width = event.xconfigure.width;
     window_event.height = event.xconfigure.height;
+
     m_width = event.xconfigure.width;
     m_height = event.xconfigure.height;
-    return false;
+
     break;
-  }
-  // Mouse hereket edende tetiklenir
-  case MotionNotify: {
-    window_event.type = WindowEventType::MouseMove;
-
-    window_event.x = event.xmotion.x;
-
-    window_event.y = event.xmotion.y;
-    return false;
-  }
-
-  case ButtonPress: {
-    window_event.type = WindowEventType::MouseButtonDown;
-
-    window_event.x = event.xbutton.x;
-
-    window_event.y = event.xbutton.y;
-
-    window_event.button = event.xbutton.button;
-    return false;
-  }
-
-  case ButtonRelease: {
-    window_event.type = WindowEventType::MouseButtonUp;
-
-    window_event.x = event.xbutton.x;
-
-    window_event.y = event.xbutton.y;
-
-    window_event.button = event.xbutton.button;
-    return false;
-  }
-
-  case KeyPress: {
-    window_event.type = WindowEventType::KeyDown;
-
-    window_event.key = event.xkey.keycode;
-    return false;
-  }
-
-  case KeyRelease: {
-    window_event.type = WindowEventType::KeyUp;
-
-    window_event.key = event.xkey.keycode;
-    return false;
   }
 
   default:

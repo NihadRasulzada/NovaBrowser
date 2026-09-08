@@ -19,7 +19,7 @@ public:
       : Node(std::move(props.style)), m_label(std::move(label)),
         m_on_click(std::move(props.onClick)) {}
 
-  void Layout(const Rect &bounds) override { m_bounds = bounds; }
+  void Layout(const Rect &bounds) override { m_bounds = ResolveBounds(bounds); }
   void Render(Display *display, ::Window window) const override;
   bool MouseButtonDown(int x, int y) override;
 
