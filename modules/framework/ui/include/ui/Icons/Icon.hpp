@@ -4,9 +4,22 @@
 #include "ui/Core/View.hpp"
 #include "ui/Icons/IconType.hpp"
 
+#include <X11/X.h>
+#include <X11/Xlib.h>
 #include <memory>
+#include <vector>
 
 namespace Nova::UI {
+
+struct Point {
+  double x;
+  double y;
+};
+
+struct Segment {
+  Point a;
+  Point b;
+};
 
 class IconNode : public Node {
 public:
@@ -18,11 +31,10 @@ public:
   void Render(Display *display, ::Window window) const override;
 
 private:
-  void RenderBack(Display *display, ::Window window) const;
-  void RenderForward(Display *display, ::Window window) const;
-  void RenderReload(Display *display, ::Window window) const;
-
-private:
+  void AddLine(std::vector<Segment> &segments, Point a, Point b);
+  Point Transform(Point p, double x, double y, double size);
+  void Draw(Display *display, Drawable drawable, GC gc, int x, int y, int size,
+            unsigned long color);
   IconType m_type;
 };
 

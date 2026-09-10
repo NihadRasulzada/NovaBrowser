@@ -2,6 +2,6 @@
 
 namespace Nova::UI {
 
-enum class IconType { Back, Forward, Reload };
+enum class IconType { ArrowLeft, ArrowRight, RefreshCCW };
 
 } // namespace Nova::UI
