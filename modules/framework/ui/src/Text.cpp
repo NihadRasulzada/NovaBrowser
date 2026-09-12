@@ -5,13 +5,11 @@
 
 namespace Nova::UI {
 
-void TextNode::Render(Display *display, ::Window window) const {
+void TextNode::Render(Display *display, ::Window window, GC gc) const {
   std::cout << "Text: "
             << "x=" << m_bounds.x << " y=" << m_bounds.y
             << " width=" << m_bounds.width << " height=" << m_bounds.height
             << '\n';
-
-  GC gc = XCreateGC(display, window, 0, nullptr);
 
   const int screen = DefaultScreen(display);
 

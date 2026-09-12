@@ -14,7 +14,7 @@ int main() {
           break;
         }
       },
-      [&](Display *display, ::Window window) {
-        browser_ui.Render(display, window);
+      [&](Display *display, ::Window window, GC gc) {
+        browser_ui.Render(display, window, gc);
       });
 }

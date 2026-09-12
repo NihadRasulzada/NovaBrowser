@@ -14,7 +14,7 @@ public:
   Rect GetBounds() const { return m_bounds; }
 
   virtual void Layout(const Rect &bounds) = 0;
-  virtual void Render(Display *display, ::Window window) const = 0;
+  virtual void Render(Display *display, ::Window window, GC gc) const = 0;
 
   virtual bool MouseButtonDown(int x, int y) { return false; }
 

@@ -2,6 +2,7 @@
 
 #include <X11/X.h>
 #include <X11/Xatom.h>
+#include <X11/Xlib.h>
 
 namespace Browser::Platform {
 
@@ -31,6 +32,8 @@ void Window::Create() {
       m_display, root, 0, 0, static_cast<unsigned int>(m_width),
       static_cast<unsigned int>(m_height), 0, BlackPixel(m_display, m_screen),
       WhitePixel(m_display, m_screen));
+
+  m_gc = XCreateGC(m_display, m_handle, 0, nullptr);
 
   XStoreName(m_display, m_handle, m_title);
   // TODO: Bura oyrenilecek. WM nedir deye.
@@ -62,7 +65,7 @@ void Window::SetPaintHandler(PaintHandler handler) {
 bool Window::HandleEvent(const XEvent &event) {
   if (event.type == Expose) {
     if (m_paint_handler) {
-      m_paint_handler(m_display, m_handle);
+      m_paint_handler(m_display, m_handle, m_gc);
     }
     return false;
   }

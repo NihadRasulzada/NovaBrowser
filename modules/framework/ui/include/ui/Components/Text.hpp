@@ -3,6 +3,7 @@
 #include "ui/Core/Node.hpp"
 #include "ui/Core/View.hpp"
 
+#include <X11/Xlib.h>
 #include <string>
 #include <utility>
 
@@ -19,7 +20,7 @@ public:
 
   void Layout(const Rect &bounds) override { m_bounds = bounds; }
 
-  void Render(Display *display, ::Window window) const override;
+  void Render(Display *display, ::Window window, GC gc) const override;
 
 private:
   std::string m_text;

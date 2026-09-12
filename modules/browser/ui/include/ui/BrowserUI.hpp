@@ -10,7 +10,7 @@ public:
   BrowserUI();
 
   void Resize(int width, int height);
-  void Render(Display *display, ::Window window);
+  void Render(Display *display, ::Window window, GC gc);
 
 private:
   Nova::UI::View Build();

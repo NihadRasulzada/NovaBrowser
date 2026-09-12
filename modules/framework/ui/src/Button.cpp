@@ -12,9 +12,7 @@ void ButtonNode::Layout(const Rect &bounds) {
   }
 }
 
-void ButtonNode::Render(Display *display, ::Window window) const {
-  GC gc = XCreateGC(display, window, 0, nullptr);
-
+void ButtonNode::Render(Display *display, ::Window window, GC gc) const {
   const int screen = DefaultScreen(display);
 
   XSetForeground(display, gc, BlackPixel(display, screen));
@@ -25,7 +23,7 @@ void ButtonNode::Render(Display *display, ::Window window) const {
   XFreeGC(display, gc);
 
   if (m_child.GetNode()) {
-    m_child->Render(display, window);
+    m_child->Render(display, window, gc);
   }
 }
 

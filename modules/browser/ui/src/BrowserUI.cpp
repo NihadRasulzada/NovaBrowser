@@ -22,8 +22,8 @@ void BrowserUI::Resize(int width, int height) {
   m_root->Layout(Rect{0, 0, width, height});
 }
 
-void BrowserUI::Render(Display *display, ::Window window) {
-  m_root->Render(display, window);
+void BrowserUI::Render(Display *display, ::Window window, GC gc) {
+  m_root->Render(display, window, gc);
 }
 
 } // namespace Browser

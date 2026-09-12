@@ -48,9 +48,9 @@ void LinearContainer::Layout(const Rect &bounds) {
   }
 }
 
-void LinearContainer::Render(Display *display, ::Window window) const {
+void LinearContainer::Render(Display *display, ::Window window, GC gc) const {
   for (const auto &child : m_children) {
-    child->Render(display, window);
+    child->Render(display, window, gc);
   }
 }
 

@@ -8,7 +8,7 @@ namespace Browser::Platform {
 class Window {
 public:
   using EventHandler = std::function<void(const WindowEvent &)>;
-  using PaintHandler = std::function<void(Display *, ::Window)>;
+  using PaintHandler = std::function<void(Display *, ::Window, GC gc)>;
 
 public:
   Window(Display *display, const char *title, int width, int height);
@@ -30,6 +30,7 @@ private:
 private:
   Display *m_display;
   int m_screen;
+  GC m_gc;
 
   ::Window m_handle;
 

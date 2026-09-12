@@ -15,7 +15,7 @@ public:
       : Node(std::move(style)), m_axis(axis), m_children(std::move(children)) {}
 
   void Layout(const Rect &bounds) override;
-  void Render(Display *display, ::Window window) const override;
+  void Render(Display *display, ::Window window, GC gc) const override;
   bool MouseButtonDown(int x, int y) override;
 
 private:
