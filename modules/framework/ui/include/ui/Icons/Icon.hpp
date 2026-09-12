@@ -11,16 +11,6 @@
 
 namespace Nova::UI {
 
-struct Point {
-  double x;
-  double y;
-};
-
-struct Segment {
-  Point a;
-  Point b;
-};
-
 class IconNode : public Node {
 public:
   explicit IconNode(IconType type, Style style = {})
@@ -31,10 +21,6 @@ public:
   void Render(Display *display, ::Window window) const override;
 
 private:
-  void AddLine(std::vector<Segment> &segments, Point a, Point b);
-  Point Transform(Point p, double x, double y, double size);
-  void Draw(Display *display, Drawable drawable, GC gc, int x, int y, int size,
-            unsigned long color);
   IconType m_type;
 };
 
